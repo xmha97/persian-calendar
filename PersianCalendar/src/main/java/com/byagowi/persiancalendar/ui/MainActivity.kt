@@ -108,21 +108,24 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         binding.drawer.addDrawerListener(drawerToggle)
         drawerToggle.syncState()
 
-        intent?.run {
-            navigateTo(
-                when (action) {
-                    "COMPASS" -> R.id.compass
-                    "LEVEL" -> R.id.level
-                    "CONVERTER" -> R.id.converter
-                    "SETTINGS" -> R.id.settings
-                    "DEVICE" -> R.id.deviceInfo
-                    else -> R.id.calendar
-                }
-            )
+        if (savedInstanceState != null)
+            navigateTo(savedInstanceState.getInt(DESTINATION, R.id.calendar))
+        else
+            intent?.run {
+                navigateTo(
+                    when (action) {
+                        "COMPASS" -> R.id.compass
+                        "LEVEL" -> R.id.level
+                        "CONVERTER" -> R.id.converter
+                        "SETTINGS" -> R.id.settings
+                        "DEVICE" -> R.id.deviceInfo
+                        else -> R.id.calendar
+                    }
+                )
 
-            // So it won't happen again if the activity restarted
-            action = ""
-        }
+                // So it won't happen again if the activity restarted
+                action = ""
+            }
 
         appPrefs.registerOnSharedPreferenceChangeListener(this)
 
@@ -197,6 +200,11 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         }.show()
 
         applyAppLanguage(this)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        getCurrentDestinationId()?.run { outState.putInt(DESTINATION, this) }
     }
 
     fun navigateTo(@IdRes id: Int) {
@@ -435,4 +443,8 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     private fun getCurrentDestinationId(): Int? = Navigation
         .findNavController(this, R.id.nav_host_fragment)
         .currentDestination?.id
+
+    companion object {
+        const val DESTINATION = "DESTINATION"
+    }
 }

@@ -74,6 +74,11 @@ class CalendarFragment : Fragment() {
 
     lateinit var mainActivity: MainActivity
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        retainInstance = true;
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View = FragmentCalendarBinding.inflate(inflater, container, false).apply {
@@ -172,16 +177,24 @@ class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bringDate(getTodayJdn(), monthChange = false, highlight = false)
+        if (savedInstanceState != null) { //FIXME: why this is always null
+            currentJdn = savedInstanceState.getLong(CURRENT_JDN, getTodayJdn())
+            bringDate(currentJdn)
+        } else
+            bringDate(getTodayJdn(), monthChange = false, highlight = false)
 
         setHasOptionsMenu(true)
 
         getTodayOfCalendar(mainCalendar).also {
-            mainActivity.setTitleAndSubtitle(
-                getMonthName(it),
-                formatNumber(it.year)
-            )
+            mainActivity.setTitleAndSubtitle(getMonthName(it), formatNumber(it.year))
         }
+    }
+
+    var currentJdn: Long = -1
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        if (currentJdn != -1L) outState.putLong(CURRENT_JDN, currentJdn)
+        super.onSaveInstanceState(outState)
     }
 
     private fun addEventOnCalendar(jdn: Long) {
@@ -283,6 +296,7 @@ class CalendarFragment : Fragment() {
         }
 
     private fun bringDate(jdn: Long, highlight: Boolean = true, monthChange: Boolean = true) {
+        currentJdn = jdn
         mainBinding.calendarPager.selectedJdn = if (highlight) jdn else -1
         if (monthChange) {
             val viewPagerPosition = calculateViewPagerPositionFromJdn(jdn)
@@ -500,19 +514,16 @@ class CalendarFragment : Fragment() {
         }
     }
 
-    private fun getSelectedJdn() =
-        mainBinding.calendarPager.selectedJdn.takeIf { it != -1L } ?: getTodayJdn()
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.go_to -> SelectDayDialog.newInstance(getSelectedJdn()).apply {
+            R.id.go_to -> SelectDayDialog.newInstance(currentJdn).apply {
                 onSuccess = fun(jdn: Long) { bringDate(jdn) }
             }.show(
                 childFragmentManager,
                 SelectDayDialog::class.java.name
             )
-            R.id.add_event -> addEventOnCalendar(getSelectedJdn())
-            R.id.shift_work -> ShiftWorkDialog.newInstance(getSelectedJdn()).apply {
+            R.id.add_event -> addEventOnCalendar(currentJdn)
+            R.id.shift_work -> ShiftWorkDialog.newInstance(currentJdn).apply {
                 onSuccess = fun() {
                     updateStoredPreference(mainActivity)
                     mainActivity.restartActivity()
@@ -547,5 +558,7 @@ class CalendarFragment : Fragment() {
         private const val CALENDARS_TAB = 0
         private const val EVENTS_TAB = 1
         private const val OWGHAT_TAB = 2
+
+        private const val CURRENT_JDN = "CURRENT_JDN"
     }
 }
