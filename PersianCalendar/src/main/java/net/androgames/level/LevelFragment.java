@@ -48,7 +48,7 @@ public class LevelFragment extends Fragment {
         final MainActivity mainActivity = (MainActivity) getActivity();
         assert mainActivity != null;
         activity = mainActivity;
-        mainActivity.setTitleAndSubtitle(getString(R.string.level), "");
+//        mainActivity.setTitleAndSubtitle(getString(R.string.level), "");
 
         final FragmentLevelBinding binding = FragmentLevelBinding.inflate(inflater, container, false);
         provider = new OrientationProvider(activity, binding.levelView);

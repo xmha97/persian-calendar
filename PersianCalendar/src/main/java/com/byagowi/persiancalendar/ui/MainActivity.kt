@@ -19,6 +19,7 @@ import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.core.view.GravityCompat
 import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.byagowi.persiancalendar.*
 import com.byagowi.persiancalendar.databinding.ActivityMainBinding
 import com.byagowi.persiancalendar.databinding.NavigationHeaderBinding
@@ -32,8 +33,7 @@ import com.google.android.material.snackbar.Snackbar
 /**
  * Program activity for android
  */
-class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener,
-    NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private var creationDateJdn: Long = 0
     private var settingHasChanged = false
@@ -41,8 +41,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
 
     val coordinator: CoordinatorLayout
         get() = binding.coordinator
-
-    private var clickedItem = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(getThemeFromName(getThemeFromPreference(this, appPrefs)))
@@ -78,6 +76,11 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
             statusBarColor = Color.TRANSPARENT
         }
 
+        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+        // automatically sets title in toolbar
+//        NavigationUI.setupWithNavController (binding.toolbar, navController, binding.drawer)
+        NavigationUI.setupWithNavController(binding.navigation, navController)
+
         binding.drawer.addDrawerListener(drawerToggle().apply { syncState() })
 
         intent?.run {
@@ -102,8 +105,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 this, Manifest.permission.READ_CALENDAR
             ) != PackageManager.PERMISSION_GRANTED
         ) askForCalendarPermission(this)
-
-        binding.navigation.setNavigationItemSelectedListener(this)
 
         NavigationHeaderBinding.bind(binding.navigation.getHeaderView(0))
             .seasonImage.setImageResource(run {
@@ -140,13 +141,13 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
     }
 
     fun navigateTo(@IdRes id: Int) {
-        binding.navigation.menu.findItem(
-            // We don't have a menu entry for compass, so
-            if (id == R.id.level) R.id.compass else id
-        )?.apply {
-            isCheckable = true
-            isChecked = true
-        }
+//        binding.navigation.menu.findItem(
+//            // We don't have a menu entry for compass, so
+//            if (id == R.id.level) R.id.compass else id
+//        )?.apply {
+//            isCheckable = true
+//            isChecked = true
+//        }
 
         if (settingHasChanged) { // update when checked menu item is changed
             initUtils(this)
@@ -327,35 +328,37 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
         startActivity(intent)
     }
 
-    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        if (menuItem.itemId == R.id.exit) {
-            finish()
-        } else {
-            binding.drawer.closeDrawers()
-            clickedItem = menuItem.itemId
-        }
-        return true
-    }
+//    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+//        if (menuItem.itemId == R.id.exit) {
+//            finish()
+//        } else {
+//            binding.drawer.closeDrawers()
+//            clickedItem = menuItem.itemId
+//        }
+//        return true
+//    }
 
     fun setTitleAndSubtitle(title: String, subtitle: String): Unit = supportActionBar?.let {
         it.title = title
         it.subtitle = subtitle
     } ?: Unit
 
-    override fun onBackPressed() {
-        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
-            binding.drawer.closeDrawers()
-        } else {
-            val calendarFragment = supportFragmentManager
-                .findFragmentByTag(CalendarFragment::class.java.name) as CalendarFragment?
-            if (calendarFragment?.closeSearch() == true) return
-
-            if (getCurrentDestinationId() == R.id.calendar)
-                finish()
-            else
-                navigateTo(R.id.calendar)
-        }
-    }
+//    override fun onBackPressed() {
+////        if (binding.drawer.isDrawerOpen(GravityCompat.START)) {
+////            binding.drawer.closeDrawers()
+////        } else {
+////            val calendarFragment = supportFragmentManager
+////                .findFragmentByTag(CalendarFragment::class.java.name) as CalendarFragment?
+////            if (calendarFragment?.closeSearch() == true) return
+////
+////            if (getCurrentDestinationId() == R.id.calendar)
+////                finish()
+////            else
+////                navigateTo(R.id.calendar)
+////        }
+//        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+//        NavigationUI.navigateUp(navController,binding.drawer)
+//    }
 
     private fun getCurrentDestinationId(): Int? = Navigation
         .findNavController(this, R.id.nav_host_fragment)
@@ -410,14 +413,6 @@ class MainActivity : AppCompatActivity(), SharedPreferences.OnSharedPreferenceCh
                 slideOffset * drawerView.width.toFloat() * slidingDirection.toFloat()
             drawer.bringChildToFront(drawerView)
             drawer.requestLayout()
-        }
-
-        override fun onDrawerClosed(drawerView: View) {
-            super.onDrawerClosed(drawerView)
-            if (clickedItem != 0) {
-                navigateTo(clickedItem)
-                clickedItem = 0
-            }
         }
     }
 }
