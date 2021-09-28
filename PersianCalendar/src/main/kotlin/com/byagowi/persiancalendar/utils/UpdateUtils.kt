@@ -437,13 +437,13 @@ private fun create4x2RemoteViews(
                 textHolderViewId, context.getString(owghatStringId) + "\n" +
                         timeClock?.toFormattedString(printAmPm = false)
             )
-            remoteViews.setTextColor(textHolderViewId, color)
+            remoteViews.setTextColor(textHolderViewId, Color.GRAY)
             Triple(textHolderViewId, owghatStringId, timeClock)
         }
         val (nextViewId, nextOwghatId, timeClock) = owghats.firstOrNull { (_, _, timeClock) ->
             timeClock.toInt() > nowClock.toInt()
         } ?: owghats[0]
-        remoteViews.setTextColor(nextViewId, Color.RED)
+        remoteViews.setTextColor(nextViewId, color)
 
         if (enableWorkManager) { // we can't have 1 minutes updates in work manager
             remoteViews.setViewVisibility(R.id.textPlaceholder2_4x2, View.GONE)

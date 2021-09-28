@@ -11,7 +11,6 @@
 
     <TextView
         android:id="@+id/textPlaceholder4owghat_1_4x2"
-        style="@style/ShadowTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -30,7 +29,6 @@
 
     <TextView
         android:id="@+id/textPlaceholder4owghat_2_4x2"
-        style="@style/ShadowTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -49,7 +47,6 @@
 
     <TextView
         android:id="@+id/textPlaceholder4owghat_3_4x2"
-        style="@style/ShadowTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -68,7 +65,6 @@
 
     <TextView
         android:id="@+id/textPlaceholder4owghat_4_4x2"
-        style="@style/ShadowTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -87,7 +83,6 @@
 
     <TextView
         android:id="@+id/textPlaceholder4owghat_5_4x2"
-        style="@style/ShadowTextStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
