@@ -40,11 +40,11 @@
         <item name="cornerSize">12dp</item>
     </style>
 
-    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+    <style name="AlertDialogTheme" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="dialogCornerRadius">@dimen/common_radius</item>
     </style>
 
-    <style name="ButtonTheme" parent="Widget.MaterialComponents.Button">
+    <style name="ButtonTheme" parent="Widget.Material3.Button">
         <item name="shapeAppearanceOverlay">@style/ButtonAppearance</item>
     </style>
 
@@ -59,27 +59,27 @@
         <item name="cornerSizeTopRight">@dimen/common_radius</item>
     </style>
 
-    <style name="BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="BottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearance">@style/BottomSheetAppearance</item>
     </style>
 
-    <style name="BottomSheetDialogTheme" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="BottomSheetDialogTheme" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
     </style>
 
-    <style name="SplashScreenTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="SplashScreenTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowTranslucentStatus" tools:targetApi="lollipop">true</item>
         <item name="android:windowTranslucentNavigation" tools:targetApi="lollipop">true</item>
         <item name="android:windowSplashscreenContent" tools:targetApi="o">@drawable/splash_screen</item>
     </style>
 
-    <style name="BaseDarkTheme" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="BaseDarkTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="appToolbarTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="appToolbarTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="android:typeface">sans</item>
         <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
         <item name="SunViewHorizonColor">@color/sViewHorizonColorDark</item>
@@ -88,16 +88,16 @@
         <item name="SunViewSunriseTextColor">@color/sViewSunriseTextColorDark</item>
         <item name="SunViewMiddayTextColor">@color/sViewMiddayTextColorDark</item>
         <item name="SunViewSunsetTextColor">@color/sViewSunsetTextColorDark</item>
-        <item name="appToolbarPopupTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="appToolbarPopupTheme">@style/ThemeOverlay.Material3.Dark</item>
     </style>
 
-    <style name="BaseLightTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="BaseLightTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="materialButtonStyle">@style/ButtonTheme</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
-        <item name="appToolbarTheme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="appToolbarTheme">@style/ThemeOverlay.Material3.Dark</item>
         <item name="android:typeface">sans</item>
         <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
         <item name="SunViewHorizonColor">@color/sViewHorizonColorLight</item>
@@ -106,7 +106,7 @@
         <item name="SunViewSunriseTextColor">@color/sViewSunriseTextColorLight</item>
         <item name="SunViewMiddayTextColor">@color/sViewMiddayTextColorLight</item>
         <item name="SunViewSunsetTextColor">@color/sViewSunsetTextColorLight</item>
-        <item name="appToolbarPopupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+        <item name="appToolbarPopupTheme">@style/ThemeOverlay.Material3.Light</item>
     </style>
 
     <style name="DarkTheme" parent="BaseDarkTheme">
@@ -345,7 +345,7 @@
         <item name="colorTextDaySelected">@color/modern_text_normal</item>
 
         <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="appToolbarTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
+        <item name="appToolbarTheme">@style/ThemeOverlay.Material3.Light</item>
     </style>
 
     <style name="FullscreenTheme" parent="LightTheme">
@@ -379,7 +379,7 @@
         <item name="android:orientation">vertical</item>
     </style>
 
-    <style name="TabLayout" parent="Widget.MaterialComponents.TabLayout">
+    <style name="TabLayout" parent="Widget.Material3.TabLayout">
         <item name="tabIndicatorColor">?attr/colorAccent</item>
         <item name="tabIndicatorHeight">3dp</item>
         <item name="android:textSize">@dimen/text_size_title</item>
@@ -389,7 +389,7 @@
         <item name="tabTextColor">?attr/normalTabTextColor</item>
     </style>
 
-    <style name="TabLayoutColored" parent="Widget.MaterialComponents.TabLayout.Colored">
+    <style name="TabLayoutColored" parent="Widget.Material3.TabLayout.OnSurface">
         <item name="tabIndicatorColor">?attr/coloredTabIndicatorColor</item>
         <item name="tabTextAppearance">@style/TabTextAppearance</item>
         <item name="tabBackground">?attr/coloredTabBackground</item>
@@ -410,14 +410,14 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
-    <style name="AppOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton" />
+    <style name="AppOutlinedButton" parent="Widget.Material3.Button.OutlinedButton" />
 
-    <style name="AppTextButton" parent="Widget.MaterialComponents.Button.TextButton" />
+    <style name="AppTextButton" parent="Widget.Material3.Button.TextButton" />
 
-    <style name="AppChipChoice" parent="Widget.MaterialComponents.Chip.Choice" />
+    <style name="AppChipChoice" parent="Widget.Material3.Chip.Assist" />
 
-    <style name="AppFullscreenAlertDialog" parent="Widget.MaterialComponents.MaterialCalendar.Fullscreen" />
+    <style name="AppFullscreenAlertDialog" parent="Widget.Material3.MaterialCalendar.Fullscreen" />
 
-    <style name="AppTextInputLayoutFilledBox" parent="Widget.MaterialComponents.TextInputLayout.FilledBox" />
+    <style name="AppTextInputLayoutFilledBox" parent="Widget.Material3.TextInputLayout.FilledBox" />
 
 </resources>
